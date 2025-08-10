@@ -3,10 +3,24 @@ import Note from '../models/Note.js';
 export async function getAllNotes(req, res) {
     try {
         const notes = await Note.find();
-        res.status(200).json(notes);
+        res.status(200).json(notes).sort({ createdAt: -1 });// Sort by creation date in descending order
     } catch (error) {
         console.error('Error fetching notes:', error);
         res.status(500).json({ message: 'Error fetching notes', error: error.message });
+    }
+}
+
+export async function getNoteById(_, res) {
+    const { id } = req.params;
+    try {
+        const note = await Note.findById(id);
+        if (!note) {
+            return res.status(404).json({ message: 'Note not found' });
+        }
+        res.status(200).json(note);
+    } catch (error) {
+        console.error('Error fetching note:', error);
+        res.status(500).json({ message: 'Error fetching note', error: error.message });
     }
 }
 
