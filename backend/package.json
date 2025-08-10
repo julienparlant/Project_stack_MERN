@@ -8,11 +8,13 @@
     "start": "node src/server.js"
   },
   "type": "module",
-  "keywords": [], 
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.1.0"
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "mongoose": "^8.17.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
