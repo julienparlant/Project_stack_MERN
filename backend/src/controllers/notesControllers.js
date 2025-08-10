@@ -2,15 +2,15 @@ import Note from '../models/Note.js';
 
 export async function getAllNotes(req, res) {
     try {
-        const notes = await Note.find();
-        res.status(200).json(notes).sort({ createdAt: -1 });// Sort by creation date in descending order
+        const notes = await Note.find().sort({ createdAt: -1 }); // Trie côté MongoDB
+        res.status(200).json(notes);
     } catch (error) {
         console.error('Error fetching notes:', error);
         res.status(500).json({ message: 'Error fetching notes', error: error.message });
     }
 }
 
-export async function getNoteById(_, res) {
+export async function getNoteById(req, res) {
     const { id } = req.params;
     try {
         const note = await Note.findById(id);
@@ -59,12 +59,12 @@ export async function updateNote(req, res) {
 }
 
 export async function deleteNote(req, res) {
-    if (!deleteNote) {
-        return res.status(404).json({ message: 'Note not found' });
-    }
     try {
         const { id } = req.params;
         const deletedNote = await Note.findByIdAndDelete(id);
+        if (!deletedNote) {
+            return res.status(404).json({ message: 'Note not found' });
+        }
         res.status(200).json({ message: 'Note deleted successfully' });
     } catch (error) {
         console.error('Error deleting note:', error);
