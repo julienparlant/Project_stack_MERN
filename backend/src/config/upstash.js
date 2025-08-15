@@ -12,7 +12,7 @@ try {
 
     ratelimit = new Ratelimit({
         redis: Redis.fromEnv(),
-        limiter: Ratelimit.slidingWindow(2, '60 s'),
+        limiter: Ratelimit.slidingWindow(100, '60 s'),
     });
 } catch (err) {
     console.error('Upstash ratelimit initialization error:', err);
