@@ -17,5 +17,4 @@ const rateLimiter = async (req, res, next) => {
   }
 };
 
-// Export the rateLimiter middleware}
 export default rateLimiter;
